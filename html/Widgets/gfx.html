@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    dojoConfig={
+        async:1,
+        gfxRenderer: "svg,silverlight,vml"
+    }
+</script>
+<script src="../../js/lib/dojo/dojo.js"></script>
+<script>
+    require(['dojox/gfx','dojo/domReady!'],function(gfx){
+        gfx.createSurface('surfaceContainer',400,400);
+    })
+</script>
+<div id="surfaceContainer"></div>
+</body>
+</html>

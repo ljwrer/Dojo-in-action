@@ -1,0 +1,118 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Demo: Combining and Chaining Animations</title>
+    <style>
+        .box {
+            position: absolute;
+            height: 200px;
+            width: 200px;
+            background-color: #ddd;
+            border: 1px #eee;
+            padding: 5px;
+        }
+        .innerBox {
+            margin: 5%;
+            padding: 5px;
+            background-color: white;
+        }
+
+        #container {
+            position: relative;
+            padding: 10px;
+            height: 300px;
+            width: 450px;
+        }
+
+        .contentBox {
+            background-color: white;
+            position: absolute;
+            width: 200px;
+            border: solid 1px #99c;
+            margin: 5px;
+
+            -moz-box-shadow: 10px 10px 5px #888;
+            -webkit-box-shadow: 2px 3px 5px #888;
+            box-shadow: 10px 10px 5px #888;
+        }
+    </style>
+</head>
+<body>
+<h1>Demo: Combining and Chaining Animations</h1>
+
+<button id="swapButton">Swap</button>
+
+<div class="container" id="container">
+    <div id="content1" class="contentBox" style="top: 0; left: 0">
+        <div class="innerBox">1: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</div>
+    </div>
+    <div id="content2" class="contentBox" style="top: 0; left: 250px">
+        <div class="innerBox">2: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+    </div>
+</div>
+
+<script src="//s1.bbgstatic.com/lib/dojo/dojo.js" data-dojo-config="isDebug: 1, async: 1, parseOnLoad: 1"></script>
+
+<script>
+    require(["dojo/_base/fx", "dojo/fx", "dojo/fx/easing", "dojo/dom-style", "dojo/dom", "dojo/aspect", "dojo/on", "dojo/domReady!"], function(baseFx, fx, easing, domStyle, dom, aspect, on) {
+
+        // define a function to return the animation which
+        // swaps the positions of 2 nodes
+        function swapAnim(node1, node2) {
+            var posn1 = parseInt(domStyle.get(node1, "left")),
+                    posn2 = parseInt(domStyle.get(node2, "left"));
+
+            return moveNodes = fx.combine([
+                fx.slideTo({
+                    duration: 1200,
+                    node: node2,
+                    left: posn1
+                }),
+                fx.slideTo({
+                    duration: 1200,
+                    node: node1,
+                    left: posn2
+                })
+            ]);
+        }
+
+        var originalOrder = true; // track which order our content nodes are in
+        var running=false;
+        var runFunc;
+        var swapButton = dom.byId("swapButton"),
+                c1 = dom.byId("content1"),
+                c2 = dom.byId("content2")
+                container = dom.byId("container");
+
+        // Set up a click handlers to run our animations
+        on(swapButton, "click", function(evt){
+            running&&runFunc&&runFunc.stop(false)
+            // chain the swap nodes animation
+            // with another to fade out a background color in our container
+            var anim = fx.chain([
+                swapAnim(c1, c2),
+                baseFx.animateProperty({
+                    node: container,
+                    properties: {
+                        backgroundColor: "#fff"
+                    }
+                })
+            ]);
+            // before the animation begins, set initial container background
+            aspect.before(anim, "beforeBegin", function(){
+                domStyle.set(container, "backgroundColor", "#eee");
+                running=true;
+            });
+////             when the animation ends, toggle the originalOrder
+            on(anim, "End", function(n1, n2){
+                running=false;
+                runFunc=null;
+            });
+            anim.play();
+        });
+    });
+</script>
+</body>
+</html>

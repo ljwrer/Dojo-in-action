@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    dojoConfig = {
+        baseUrl: '//s1.bbgstatic.com/Dojo-in-action/js',
+        async: true,
+        has: {
+            "dojo-firebug": true,
+            "dojo-debug-messages": true,
+            "config-tlmSiblingOfDojo": false
+        },
+        // Don't attempt to parse the page for widgets
+        parseOnLoad: false,
+        packages: [
+            // Any references to a "demo" resource should load modules locally, *not* from CDN
+            'dojo'
+        ],
+        paths: {
+            'lib': '//s1.bbgstatic.com/lib',
+            'dojo': 'lib/dojo'
+        },
+        // Timeout after 10 seconds
+        waitSeconds: 10,
+        map: {
+            // Instead of having to type "dojo/domReady!", we just want "ready!" instead
+            "*": {
+                ready: "dojo/domReady"
+            }
+        },
+        // Get "fresh" resources
+        cacheBust: true
+    };
+</script>
+
+<!-- Load Dojo, Dijit, and DojoX resources from Google CDN -->
+<script src="//s1.bbgstatic.com/lib/dojo/dojo.js" data-dojo-config="async:true"></script>
+<!--<script src="./js/lib/dojo/dojo.js" data-dojo-config="async:true"></script>-->
+
+
+<!-- Load a "demo" module -->
+
+<!--<script>-->
+<!--require(["my/app", "../../js/lib/dojo/parser", 'dojo/dom', "ready!"], function(app, parser,dom) {-->
+<!--// Parse the page-->
+<!--console.log(dom);-->
+<!--// Do something with demo/AuthoredDialog...-->
+<!--});-->
+<!--</script>-->
+<!--<script>-->
+<!--require(["dojo/dom"], function(){-->
+<!--// some code-->
+<!--var dom = require("dojo/dom");-->
+<!--// some more code-->
+<!--console.log(dom);-->
+<!--});-->
+<!--</script>-->
+</body>
+</html>

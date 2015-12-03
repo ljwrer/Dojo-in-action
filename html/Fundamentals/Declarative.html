@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../js/lib/dijit/themes/claro/claro.css">
+</head>
+<body class="claro">
+
+<!--<script>-->
+    <!--require(["dijit/form/Button", "dijit/Dialog"], function (Button, Dialog) {-->
+        <!--var myButton = new Button({-->
+                    <!--label: "Click Me!",-->
+                    <!--id: "myButton"-->
+                <!--}, "myButton"),-->
+                <!--someDialog = new Dialog({-->
+                    <!--title: "Hello World!",-->
+                    <!--content: "<p>I am a dialog. That makes me happy.</p>"-->
+                <!--}, "someDialog");-->
+        <!--myButton.on("click", function () {-->
+            <!--someDialog.show();-->
+        <!--});-->
+        <!--myButton.startup();-->
+        <!--someDialog.startup();-->
+    <!--});-->
+<!--</script>-->
+<!--<div id="myButton"></div>-->
+<div id="someDialog2" data-dojo-type="dijit/Dialog"
+     data-dojo-props="title: 'Hello World!'">
+    <p>I am a dialog. That makes me happy.</p>
+</div>
+<button type="button" id="myButton2" data-dojo-type="dijit/form/Button">
+    <span>Click Me!</span>
+    <script type="dojo/on" data-dojo-event="click">
+        var registry = require("dijit/registry");
+        registry.byId("someDialog2").show();
+    </script>
+</button>
+<script src="../../js/lib/dojo/dojo.js" data-dojo-config="isDebug: 1, async: 1, parseOnLoad: 1"></script>
+<script>
+    require(['dojo/parser'],function(parser){
+        parser.parse();
+    })
+</script>
+</body>
+</html>

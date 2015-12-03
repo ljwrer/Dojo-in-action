@@ -1,0 +1,129 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--<meta charset="UTF-8">-->
+<!--<title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<a href="#links/1">1</a>-->
+<!--<a href="#links/2">2</a>-->
+<!--<a href="#links/3">3</a>-->
+<!--<script src="../../js/conf/config.js"></script>-->
+<!--<script src="../../js/lib/dojo/dojo.js"></script>-->
+<!--<script>-->
+<!--require(['dojo/router'],function(router){-->
+<!--router.register('links/:id',function(evt){-->
+<!--alert(evt.params.id);-->
+<!--});-->
+<!--router.startup();-->
+<!--router.go('links/1');-->
+<!--})-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<title>Welcome</title>-->
+<!--</head>-->
+<!--<body class="claro">-->
+<!--<h3>Select a User to View Their Details</h3>-->
+<!--<br/>-->
+
+<!--<div id="grid"></div>-->
+<!--&lt;!&ndash; load dojo and provide config via data attribute &ndash;&gt;-->
+<!--<script src="//s1.bbgsatatic.com/lib/dojo/dojo.js" data-dojo-config="isDebug: 1, async: 1, parseOnLoad: 1"></script>-->
+<!--<script>-->
+    <!--require([-->
+        <!--"dojo/request",-->
+        <!--"dojox/grid/DataGrid",-->
+        <!--"dojo/store/Memory",-->
+        <!--"dojo/data/ObjectStore"-->
+    <!--], function (request, DataGrid, Memory, ObjectStore) {-->
+        <!--var store = new Memory();-->
+
+        <!--request("./users.json", {-->
+            <!--handleAs: "json"-->
+        <!--}).then(function (data) {-->
+            <!--var grid;-->
+            <!--store.setData(data);-->
+            <!--grid = new DataGrid({-->
+                <!--store: new ObjectStore({objectStore: store}),-->
+                <!--structure: [{-->
+                    <!--name: "Full Name",-->
+                    <!--field: "fullName",-->
+                    <!--width: "200px"-->
+                <!--}, {-->
+                    <!--name: "Email Address",-->
+                    <!--field: "email",-->
+                    <!--width: "200px"-->
+                <!--}],-->
+                <!--autoHeight: true,-->
+                <!--autoWidth: true,-->
+                <!--onRowClick: function (e) {-->
+                    <!--location.href = "users.html#/user/" + grid.getItem(e.rowIndex).id-->
+                <!--},-->
+                <!--selectionMode: "single"-->
+            <!--}, "grid");-->
+
+            <!--grid.startup();-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+    <style>
+        #console {
+            margin-top: 2em;
+            border-top: 1px solid #333;
+        }
+
+        #console div {
+            background: #eee;
+            padding:5px 10px;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><a href="#/user/1">User 1</a></li>
+    <li><a href="#/user/2">User 2</a></li>
+    <li><a href="#/user/3">User 3</a></li>
+    <li><a href="#/user/4">User 4</a></li>
+    <li><a href="#/norouter/match">No Router Match</a></li>
+</ul>
+
+<!-- load dojo and provide config via data attribute -->
+<script src="//s1.bbgstatic.com/Dojo-in-action/js/lib/dojo/dojo.js" data-dojo-config="isDebug: 1, async: 1, parseOnLoad: 1"></script>
+<script>
+    require([
+        "dojo/router",
+        "dojo/dom-construct"
+    ], function(router, domConstruct){
+        router.register("/user/:id", function(event){
+            log("Router matched hash: " + event.params.id);
+        });
+
+        router.startup();
+
+        function log(msg){
+            var c = document.getElementById("console");
+            if(!c){
+                c = domConstruct.create("div", {
+                    id: "console"
+                }, document.body);
+            }
+            c.innerHTML += "<div>" + msg + "</div>";
+        }
+    });
+</script>
+</body>
+</html>

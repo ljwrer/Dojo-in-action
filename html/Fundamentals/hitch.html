@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script src="../../js/lib/dojo/dojo.js" data-dojo-config="async:1"></script>
+<script>
+//    var foo = "bar";
+    require(["dojo/_base/lang"],
+            function (lang) {
+
+//                var myFunction = function(){
+//                    alert(this.foo);
+//                };
+//                var myObject = { foo: "baz" };
+//
+//                // later on in your application
+////                var boundFunction = lang.hitch(myObject, myFunction);
+//                  var boundFunction=myFunction.bind(myObject);
+//                // the first value will be "bar", the second will be "baz";
+//                // the third will still be "bar".
+//                myFunction();        // "bar"
+//                boundFunction();    // "baz"
+//                myFunction();        // "bar"
+                var foo=function(a,b,c){
+                    alert(a+b+c);
+                }
+                var bar=lang.partial(foo,1);
+                bar(2,3);
+            });
+</script>
+</body>
+</html>

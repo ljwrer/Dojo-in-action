@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="list"></ul>
+<script src="../../js/conf/config.js"></script>
+<script src="../../js/lib/dojo/dojo.js"></script>
+<script>
+    require(['dojo/request', 'dojo/_base/array', 'dojo/dom', 'dojo/dom-construct', 'dojo/Deferred'], function (request, arrayUtil, dom, domConstruct, Deferred) {
+        var rq = request.get('data.json', {
+            handleAs: 'json'
+        });
+        rq.then(function (res) {
+            arrayUtil.forEach(res, function (item) {
+                var node = domConstruct.toDom('<ul>' + 'name:' + item.name + ',age:' + item.age + '</ul>');
+                domConstruct.place(node, list);
+            })
+        }, function (err) {
+            var node = domConstruct.toDom('<ul>' + err.response.status + '</ul>');
+            domConstruct.place(node, list);
+        })
+        var rq1=rq.then(function(){
+            return "hello"
+        });
+        rq1.then(function(s){
+            var node=domConstruct.toDom('<p>'+s+'</p>');
+            domConstruct.place(node,document.body);
+        })
+    })
+    //    require(['dojo/request', 'dojo/_base/array', 'dojo/dom', 'dojo/dom-construct','dojo/Deferred'], function (request, arrayUtil, dom, domConstruct,Deferred) {
+    //        var list = dom.byId('list');
+    //        var deferred=new Deferred();
+    //        var d1=deferred.then(function (res) {
+    //            arrayUtil.forEach(res, function (item) {
+    //                var node = domConstruct.toDom('<ul>' + 'name:' + item.name + ',age:' + item.age + '</ul>');
+    //                domConstruct.place(node, list);
+    //            })
+    //        },function(err){
+    //            var node=dom.constructor.toDom('<ul>'+err+'</ul>');
+    //            domConstruct.place(node, list);
+    //        })
+    //        request.get('data.json', {
+    //            handleAs: 'json'
+    //        }).then(function (res) {
+    //            deferred.resolve(res);
+    //        },function(err){
+    //            deferred.reject(err);
+    //        })
+    //    })
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn"></button>
+<script src="//s1.bbgstatic.com/Dojo-in-action/js/conf/config.js"></script>
+<script src="//s1.bbgstatic.com/Dojo-in-action/js/lib/dojo/dojo.js" data-dojo-config="async:1"></script>
+<script>
+    require(['dojo/_base/declare'],function(declare){
+        declare("myClass",null,{
+            a:[1,2,3],
+            get:function(){
+                return this.a;
+            },
+            set:function(item){
+                this.a.push(item);
+            },
+            say:function(){
+              console.log("111");
+            },
+            constructor:function(args){
+                declare.safeMixin(this,args);
+            }
+        });
+        declare("mySubClass",myClass,{
+            remove:function(){
+                this.a.pop();
+            },
+            constructor:function(args){
+                declare.safeMixin(this,args)
+            },
+            say:function(){
+                this.inherited(arguments);
+                console.log("222");
+            }
+        })
+        var my1=new myClass({a:"hello"});
+        var my2=new mySubClass();
+        var my3=new mySubClass();
+        my3.say();
+    });
+    require(['module/widget/myButton'],function(myButton){
+        var myButton1=new myButton({},'btn');
+        myButton1.startup();
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../js/lib/dijit/themes/claro/claro.css" rel="stylesheet"/>
+</head>
+<body class="claro">
+<script src="../../js/lib/dojo/dojo.js" data-dojo-config="async:1"></script>
+<script>
+    require(['dijit/Dialog'],function(Dialog){
+        new Dialog({
+            title:'dialog title',
+            content:'dialog content',
+            loadingMessage:'loading',
+            style:'width:200px'
+        }).show()
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    dojoConfig = {
+        has: {
+            "dojo-firebug": true,
+            "dojo-debug-messages": true
+        },
+        // Don't attempt to parse the page for widgets
+        parseOnLoad: false,
+        packages: [
+            // Any references to a "demo" resource should load modules locally, *not* from CDN
+            {
+                name: "demo",
+                location: "/documentation/tutorials/1.10/dojo_config/demo"
+            }
+        ],
+        // Timeout after 10 seconds
+        waitSeconds: 10,
+        map: {
+            // Instead of having to type "dojo/domReady!", we just want "ready!" instead
+            "*": {
+                ready: "dojo/domReady"
+            }
+        },
+        // Get "fresh" resources
+        cacheBust: true
+    };
+</script>
+
+<!-- Load Dojo, Dijit, and DojoX resources from Google CDN -->
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+
+<!-- Load a "demo" module -->
+
+<script>
+    require(["demo/AuthoredDialog", "../../js/lib/dojo/parser", "ready!"], function (AuthoredDialog, parser) {
+        // Parse the page
+        parser.parse();
+
+        // Do something with demo/AuthoredDialog...
+    });
+</script>
+</body>
+</html>

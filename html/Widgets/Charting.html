@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #chartId, #pie, #sh, #grid {
+            width: 400px;
+            height: 400px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<script>
+    dojoConfig = {
+        parseOnLoad: true, //enables declarative chart creation
+        gfxRenderer: "svg,silverlight,vml" // svg is first priority
+    };
+</script>
+<script src="../../js/lib/dojo/dojo.js" data-dojo-config="async:1"></script>
+<script>
+    require([
+                'dojox/charting/Chart',
+                'dojox/charting/themes/BlueDusk',
+                'dojox/charting/plot2d/Lines',
+                'dojox/charting/plot2d/Pie',
+                'dojox/charting/plot2d/Areas',
+                'dojox/charting/axis2d/Default',
+                'dojox/charting/plot2d/Grid',
+                'dojo/domReady!'
+            ],
+            function (Chart, theme, Lines, Pie, Areas, Default, Grid) {
+                'use strict';
+                var data = [
+                    {x: 1, y: 1},
+                    {x: 2, y: 1},
+                    {x: 3, y: 3},
+                    {x: 4, y: 4},
+                    {x: 4.5, y: 10}
+                ];
+                var data2 = [
+                    {x: 1, y: 10},
+                    {x: 5, y: 1}
+                ]
+                var pieChart = new Chart('chartId', {
+                    title: "Production(Quantity)",
+                    titlePos: "bottom",
+                    titleGap: 25,
+                    titleFont: "normal normal normal 15pt Arial",
+                    titleFontColor: "orange"
+                });
+                pieChart.setTheme(theme);
+                pieChart.addPlot('default', {
+                    type: Lines,
+                    fontColor: 'black',
+                    tension: "X"
+                });
+                pieChart.addAxis('x',{min:0});
+                pieChart.addAxis('y', {vertical: true,min:0})
+                        .addAxis("dw", {
+                            vertical: true,
+                            leftBottom: false
+                        });
+                pieChart.addSeries('haha', data);
+                pieChart.addSeries('hehe', data2);
+                pieChart.render();
+                var pie = new Chart('pie', {
+                    title: 'pie',
+                    titlePos: 'top'
+                });
+                pie.setTheme(theme);
+                pie.addPlot('default', {
+                    type: Pie
+                });
+                pie.addSeries('hihi', data);
+                pie.render();
+                new Chart('sh')
+                        .addPlot("default", {type: Areas, tension: "X"})
+                        .setTheme(theme)
+                        .addSeries("Series A", [1, 2, 0.5, 1.5, 1, 2.8, 0.4])
+                        .addSeries("Series B", [2.6, 1.8, 2, 1, 1.4, 0.7, 2])
+                        .addSeries("Series C", [6.3, 1.8, 3, 0.5, 4.4, 2.7, 2])
+                        .render();
+                var gridChart = new Chart('grid',
+                        {
+                            title: 'grid'
+                        })
+                        .addPlot("default", {type: Lines})
+                        .addPlot('grid', {
+                            type: Grid,
+                            renderOnAxis: false,
+                            majorVLine: {color: "green", width: 3},
+                            majorHLine: {color: "red", width: 3}
+                        })
+                        .setTheme(theme)
+                        .addAxis('x')
+                        .addAxis('y', {vertical: true})
+                        .addSeries("Series A", [1, 2, 0.5, 1.5, 1, 2.8, 0.4])
+                        .addSeries("Series B", [2.6, 1.8, 2, 1, 1.4, 0.7, 2])
+                        .addSeries("Series C", [6.3, 1.8, 3, 0.5, 4.4, 2.7, 2],{
+                            stroke:{color:"red", width: 10},
+                            fill:'#123456'
+                        })
+                        .render();
+                var seriesA = gridChart.getSeries()
+            });
+</script>
+<div id="chartId"></div>
+<div id="pie"></div>
+<div id="sh"></div>
+<div id="grid"></div>
+</body>
+</html>

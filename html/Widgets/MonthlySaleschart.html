@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../js/lib/dijit/themes/claro/claro.css" media="screen">
+</head>
+<body>
+<div id="MonthlySales"></div>
+<script src="../../js/lib/dojo/dojo.js" data-dojo-config="async:1"></script>
+<script>
+    require([
+        'dojox/charting/Chart',
+        'dojox/charting/themes/Tom',
+        'dojox/charting/plot2d/Lines',
+        'dojox/charting/plot2d/Markers',
+        'dojox/charting/axis2d/Default',
+        'dojox/charting/widget/Legend',
+        'dojox/charting/action2d/Tooltip',
+        'dojox/charting/action2d/Magnify',
+        'dojox/charting/action2d/MoveSlice',
+        'dojox/charting/plot2d/Pie',
+        'dojox/charting/action2d/Highlight',
+        'dojo/domReady!'
+    ], function (Chart, Tom, Lines, Markers, Default, Legend, Tooltip, Magnify, MoveSlice, Pie, Highlight) {
+        var chartData = [10000, 9200, 11811, 12000, 7662, 13887, 14200, 12222, 12000, 10009, 11288, 12099];
+        var MonthlySale = new Chart('MonthlySales')
+                .setTheme(Tom)
+                .addPlot('default', {
+                    type: Lines,
+                    markers: true
+                })
+                .addAxis('x')
+                .addAxis('y', {
+                    vertical: true,
+                    min: 5000,
+                    max: 15000,
+                    fixLower: "major",
+                    fixUpper: "major"
+                })
+                .addSeries('sales', chartData);
+        var pieChart = new Chart('PieChart')
+                .addPlot('default', {
+                    type: Pie
+                })
+                .setTheme(Tom)
+                .addSeries('sales', chartData)
+        var highlight1 = new Highlight(MonthlySale, "default");
+//        var highlight2 = new Highlight(pieChart, "default");
+        var tip = new Tooltip(MonthlySale, "default");
+        var slice = new MoveSlice(pieChart, "default");
+        pieChart.render();
+        var magnify = new Magnify(MonthlySale, "default");
+        MonthlySale.render();
+        var legend = new Legend({chart: MonthlySale}, 'legend1');
+
+    })
+
+</script>
+<script>
+    require([
+        // Require the basic chart class
+        "dojox/charting/Chart",
+
+        // Require the theme of our choosing
+        "dojox/charting/themes/Claro",
+
+        //     We want to plot Lines
+        "dojox/charting/plot2d/Lines",
+
+        // Load the Legend, Tooltip, and Magnify classes
+        "dojox/charting/widget/Legend",
+        "dojox/charting/action2d/Tooltip",
+        "dojox/charting/action2d/Magnify",
+
+        //    We want to use Markers
+        "dojox/charting/plot2d/Markers",
+
+        //    We&#x27;ll use default x/y axes
+        "dojox/charting/axis2d/Default",
+
+        // Wait until the DOM is ready
+        "dojo/domReady!"
+    ], function (Chart, theme, LinesPlot, Legend, Tooltip, Magnify) {
+
+        // Define the data
+        var chartData = [10000, 9200, 11811, 12000, 7662, 13887, 14200, 12222, 12000, 10009, 11288, 12099];
+        var chartData2 = [3000, 12000, 17733, 9876, 12783, 12899, 13888, 13277, 14299, 12345, 12345, 15763];
+        var chartData3 = [3000, 12000, 17733, 9876, 12783, 12899, 13888, 13277, 14299, 12345, 12345, 15763].reverse();
+
+        // Create the chart within it&#x27;s "holding" node
+        var chart = new Chart("chartNode");
+
+        // Set the theme
+        chart.setTheme(theme);
+
+        // Add the only/default plot
+        chart.addPlot("default", {
+            type: LinesPlot,
+            markers: true
+        });
+
+        // Add axes
+        chart.addAxis("x");
+        chart.addAxis("y", {min: 5000, max: 30000, vertical: true, fixLower: "major", fixUpper: "major"});
+
+        // Add the series of data
+        chart.addSeries("Monthly Sales - 2010", chartData);
+        chart.addSeries("Monthly Sales - 2009", chartData2);
+        chart.addSeries("Monthly Sales - 2008", chartData3);
+
+        // Create the tooltip
+        var tip = new Tooltip(chart, "default");
+
+        // Create the magnifier
+        var mag = new Magnify(chart, "default");
+
+        // Render the chart!
+        chart.render();
+
+        // Create the legend
+        var legend = new Legend({chart: chart}, "legend");
+    });</script>
+
+<div id="chartNode" style="width:800px;height:400px;"></div>
+<div id="legend"></div>
+<div id="legend1"></div>
+<div id="PieChart"></div>
+<script>
+    require([
+        // Require the basic chart class
+        "dojox/charting/Chart",
+
+        // Require the theme of our choosing
+        "dojox/charting/themes/Claro",
+
+        // Charting plugins:
+
+        //     We want to plot a Pie chart
+        "dojox/charting/plot2d/Pie",
+
+        // Retrieve the Legend, Tooltip, and MoveSlice classes
+        "dojox/charting/action2d/Tooltip",
+        "dojox/charting/action2d/MoveSlice",
+
+        //    We want to use Markers
+        "dojox/charting/plot2d/Markers",
+
+        //    We&#x27;ll use default x/y axes
+        "dojox/charting/axis2d/Default",
+
+        // Wait until the DOM is ready
+        "dojo/domReady!"
+    ], function(Chart, theme, Pie, Tooltip, MoveSlice) {
+
+        // Define the data
+        var chartData = [10000,9200,11811,12000,7662,13887,14200,12222,12000,10009,11288,12099];
+
+        // Create the chart within it&#x27;s "holding" node
+        var chart = new Chart("chartNode1");
+
+        // Set the theme
+        chart.setTheme(theme);
+
+        // Add the only/default plot
+        chart.addPlot("default", {
+            type: Pie,
+            markers: true,
+            radius:170
+        });
+
+        // Add axes
+        chart.addAxis("x");
+        chart.addAxis("y", { min: 5000, max: 30000, vertical: true, fixLower: "major", fixUpper: "major" });
+
+        // Add the series of data
+        chart.addSeries("Monthly Sales - 2010",chartData);
+
+        // Create the tooltip
+        var tip = new Tooltip(chart,"default");
+
+        // Create the slice mover
+        var mag = new MoveSlice(chart,"default");
+
+        // Render the chart!
+        chart.render();
+
+    });
+</script>
+
+<div id="chartNode1" style="width:800px;height:400px;"></div>
+<script>
+    require([
+        // Require the basic chart class
+        "dojox/charting/Chart",
+
+        // Require the theme of our choosing
+        "dojox/charting/themes/MiamiNice",
+
+        //     We want to plot Columns
+        "dojox/charting/plot2d/Columns",
+
+        // Require the highlighter
+        "dojox/charting/action2d/Highlight",
+
+        //    We want to use Markers
+        "dojox/charting/plot2d/Markers",
+
+        //    We&#x27;ll use default x/y axes
+        "dojox/charting/axis2d/Default",
+
+        // Wait until the DOM is ready
+        "dojo/domReady!"
+    ], function(Chart, theme, ColumnsPlot, Highlight) {
+
+        // Define the data
+        var chartData = [10000,9200,11811,12000,7662,13887,14200,12222,12000,10009,11288,12099];
+
+        // Create the chart within it&#x27;s "holding" node
+        var chart = new Chart("chartNode2");
+
+        // Set the theme
+        chart.setTheme(theme);
+
+        // Add the only/default plot
+        chart.addPlot("default", {
+            type: ColumnsPlot,
+            markers: true,
+            gap: 5
+        });
+
+        // Add axes
+        chart.addAxis("x");
+        chart.addAxis("y", { vertical: true, fixLower: "major", fixUpper: "major" });
+
+        // Add the series of data
+        chart.addSeries("Monthly Sales",chartData);
+
+        // Highlight!
+        new Highlight(chart,"default");
+
+        // Render the chart!
+        chart.render();
+        chart.connectToPlot("default", function(evt) {
+            // Use console to output information about the event
+            console.info("Chart event on default plot!",evt);
+            console.info("Event type is: ",evt.type);
+            console.info("The element clicked was: ",evt.element);
+            console.info("x:"+evt.x);
+            console.info("y:"+evt.y);
+            console.info("shape:"+evt.shape);
+        });
+    });</script>
+<div id="chartNode2" style="width:800px;height:400px;"></div>
+</body>
+</html>

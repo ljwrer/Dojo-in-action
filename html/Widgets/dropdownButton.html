@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <link rel="stylesheet" href="../../js/lib/dijit/themes/claro/claro.css">
+
+    <script>dojoConfig = {parseOnLoad: true}</script>
+    <script src='../../js/lib/dojo/dojo.js' data-dojo-config="async:1"></script>
+
+    <script>
+        require(["dijit/form/DropDownButton", "dijit/DropDownMenu", "dijit/MenuItem", "dojo/dom", "dojo/domReady!"],
+                function(DropDownButton, DropDownMenu, MenuItem, dom){
+                    var menu = new DropDownMenu({ style: "display: none;"});
+                    var menuItem1 = new MenuItem({
+                        label: "Save",
+                        iconClass:"dijitEditorIcon dijitEditorIconSave",
+                        onClick: function(){ alert('save'); }
+                    });
+                    menu.addChild(menuItem1);
+
+                    var menuItem2 = new MenuItem({
+                        label: "Cut",
+                        iconClass:"dijitEditorIcon dijitEditorIconCut",
+                        onClick: function(){ alert('cut'); }
+                    });
+                    menu.addChild(menuItem2);
+                    menu.startup();
+
+                    var button = new DropDownButton({
+                        label: "hello!",
+                        name: "programmatic2",
+                        dropDown: menu,
+                        id: "progButton"
+                    }).startup();                    dom.byId("dropDownButtonContainer").appendChild(button.domNode);
+                });
+    </script>
+</head>
+<body class="claro">
+<div id="dropDownButtonContainer"></div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../js/lib/dijit/themes/claro/claro.css" rel="stylesheet"/>
+</head>
+<body class="claro">
+<!--<input type="checkbox" checked id="dBox1" data-dojo-type="dijit/form/CheckBox">-->
+<!--<label for="dBox1">选择</label>-->
+<!--<div id="cb1Container"></div>-->
+<script>
+    dojoConfig={
+        async:1,
+        parseOnLoad:1,
+        isDebug:1
+    }
+</script>
+<script src="../../js/lib/dojo/dojo.js"></script>
+<!--<script>-->
+    <!--require(['dojo/parser','dijit/form/CheckBox'],function(parser,CheckBox){-->
+        <!--parser.parse();-->
+        <!--var cb1=new CheckBox({-->
+            <!--id:'cb11',-->
+            <!--checked:true,-->
+            <!--value:"hehe",-->
+            <!--label:"hehe"-->
+        <!--});-->
+        <!--cb1.placeAt('cb1Container');-->
+    <!--})-->
+<!--</script>-->
+<div>
+    <p><input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="cb1" value="sword"></p>
+    <p><input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="cb2" value="knife"></p>
+    <p><input type="checkbox" data-dojo-type="dijit/form/CheckBox" id="change1"></p>
+    <button id="show">alert</button>
+</div>
+<script>
+    require(['dijit/form/CheckBox','dijit/registry','dojo/dom','dojo/on','dojo/parser','dojo/domReady!'],function(CheckBox,registry,dom,on,parser){
+        parser.parse();
+        function alertMessage(){
+            var alertList=[];
+            if(registry.byId("cb1").checked){
+                alertList.push(registry.byId("cb1").get('value'));
+            }
+            if(registry.byId("cb2").checked){
+                alertList.push(registry.byId("cb2").get('value'))
+            }
+            alert(alertList);
+        }
+        var btn=dom.byId('show');
+        registry.byId('change1').on('change',function(isChecked){
+            registry.byId('cb2').set('value',isChecked?'sharp knife':'knife')
+        })
+        registry.byId('cb2').set('value',true);
+        on(btn,'click',alertMessage);
+    })
+</script>
+</body>
+</html>

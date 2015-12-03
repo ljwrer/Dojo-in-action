@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../js/lib/dojo/dojo.js" data-dojo-config="async:1"></script>
+</head>
+<body>
+<script>
+    require(['dojo/_base/lang', 'dojo/_base/declare'], function (lang, declare) {
+//            var a={a:1};
+//            function F(){
+//                this.b=2;
+//            };
+//            var c=new F();
+//            F.prototype.c=3;
+//            var b=declare.safeMixin(a,c);
+//            for(x in a){
+//                console.log(x+':'+a[x]);
+//            }
+//            for(x in b){
+//                console.log(x+':'+b[x]);
+//            }
+        var a = {
+            name: "a",
+            subObject: {
+                foo: "bar"
+            }
+        };
+        var b = lang.mixin({}, a);
+
+        b.name = "b";
+        b.subObject.foo = "baz";
+
+        console.log("a b, as expected:",
+                a.name, b.name);
+        console.log("true - both subObjects reference the exact same object:",
+                a.subObject === b.subObject);
+        console.log("baz baz - a change to one subObject affects both:",
+                a.subObject.foo, b.subObject.foo);
+        console.log(a===b)
+    })
+</script>
+</body>
+</html>

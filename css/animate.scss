@@ -1,0 +1,27 @@
+#wipeTarget {
+    height: 400px;
+    width: 400px;
+    margin: 50px;
+    background: deepskyblue;
+}
+
+#anim8target {
+    border-style: outset;
+}
+
+#anim8target2 {
+    position: relative;
+    top: 0;
+    left: 50%;
+    background-color: #fc9
+}
+
+#content1 {
+    position: relative;
+    left: 0;
+}
+
+#content2 {
+    @extend #content1;
+    left: 250px;
+}

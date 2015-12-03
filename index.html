@@ -6,5 +6,36 @@
 </head>
 <body>
 
+<script>
+    //    require({
+    //        baseUrl: 'js/',
+    //        packages: [
+    //            {name: 'dojo', location: '//cdn.bootcss.com/dojo/1.10.4/'},
+    //            {name: 'my', location: 'my'}
+    //        ]
+    //    }, ['my/app'], function () {
+    //
+    //    })
+    var dojoConfig = {
+        baseUrl: 'js',
+        packages: [
+            {
+                name: 'app1',
+                location: 'my',
+                main: 'app'
+            }, {
+                name: 'app2',
+                location: 'my2/ll',
+                main: 'app'
+            }
+        ]
+    }
+</script>
+<script src="js/lib/dojo/dojo.js" data-dojo-config="async:true"></script>
+<script>
+    require(['app1', 'app2', 'app1/app2'], function (app1, app2, app3) {
+
+    })
+</script>
 </body>
 </html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../../js/lib/dojo/dojo.js" data-dojo-config="async:1"></script>
+<script>
+    require(['dojo/request/script'], function (request) {
+        request.get('http://10.200.51.115:9001/rest/creation/viewModels', {
+            jsonp:"callback"
+        }).then(function(response){
+            console.log(response.msg)
+        })
+    })
+</script>
+</body>
+</html>

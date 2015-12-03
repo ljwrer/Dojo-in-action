@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../js/lib/dijit/themes/claro/claro.css" rel="stylesheet">
+    <style>
+        #myElement1,#myElement2{
+            width: 100px;
+        }
+    </style>
+</head>
+<body class="claro">
+<div id="myElement1">myElement1</div>
+<div id="myElement2">myElement2</div>
+<button id="TooltipButton" onmouseover="dijit.Tooltip.defaultPosition=['above', 'below']">Tooltip Above</button>
+<div class="dijitHidden"><span data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'TooltipButton'"><img src="http://imglf1.nosdn.127.net/img/WFJpUGZIL0RJTGZQRndVU1djbVVtOURBaGsrL3B5MlU5ditGcU5FUTBjWW9EUys3VFJ4TWRBPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg"/>I am <strong>above</strong> the button</span></div>
+
+<script>
+    dojoConfig = {
+        async: 1,
+        parseOnLoad: 1,
+        isDebug: 1
+    }
+</script>
+<script src="../../js/lib/dojo/dojo.js"></script>
+<script>
+    require(['dijit/Tooltip', 'dojo/parser', 'dojo/domReady!'], function (Tooltip, parser) {
+        parser.parse();
+        var tip = new Tooltip({
+            // Label - the HTML or text to be placed within the Tooltip
+            label: '&lt;div class="myTipType"&gt;This is the content of my Tooltip!&lt;/div&gt;',
+            // Delay before showing the Tooltip (in milliseconds)
+            showDelay: 250,
+            // The nodes to attach the Tooltip to
+            // Can be an array of strings or domNodes
+            connectId: ["myElement1", "myElement2"]
+        });
+    })
+</script>
+</body>
+</html>
